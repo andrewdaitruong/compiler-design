@@ -1,3 +1,5 @@
+// If text files are not suppose to have numbers, remove anything line number related.
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -21,15 +23,22 @@ void processFile(const string& inputFilename, const string& outputFilename) {
     bool is_comment = false; //checks if comment
     int lineNumber = 1;
 
-    //Looks for comments... STILL NEED TO COMPLETE. Line number is just a place holder
     while (getline(inputFile, line)) {
+        // This strips the number off of the input file
+        size_t pos = line.find_first_not_of(" \t");
+        if (pos != string::npos && isdigit(line[pos])) {
+            pos = line.find_first_of(" \t", pos);  // Skip the number and any spaces after it
+            line = (pos != string::npos) ? line.substr(pos) : "";
+        }
+
         stringstream processed_line;
         size_t i = 0;
         
         while (i < line.size()) {
             if (!is_comment) {
+                // Looks for the characters that make up a comment
                 if (line[i] == '(' && line[i + 1] == '*' && i + 1 < line.size()) {
-                    is_comment = true; //is_comment = true until *)
+                    is_comment = true; //true until it finds *)
                     i += 2;
                 }
                 else {
@@ -54,7 +63,11 @@ void processFile(const string& inputFilename, const string& outputFilename) {
         result.erase(0, result.find_first_not_of(' '));
         result.erase(result.find_last_not_of(' ') + 1);
 
-        if (!result.empty() && !is_comment) {
+        // Can remove use "if ( !results.empty() || is_comment ) and whatever is in the else if no line numbers are needed."
+        if (result.empty() || is_comment) {
+            continue;
+        }
+        else {
             outputFile << setw(4) << lineNumber << ". " << result << endl;  // Line number formatting
             lineNumber++;
         }   

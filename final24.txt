@@ -1,15 +1,11 @@
-   1. 1. program f2024;
-   2. 4. var
-   3. 5.
-   4. 6. a , b2a , c, bba : integer ;
-   5. 7. begin
-   6. 8. a = 3 ;
-   7. 9. b2a = 14 ;
-   8. 10. c = 5 ;
-   9. 11. print ( c );
-  10. 12.
-  11. 13.
-  12. 14. bba = a1 * ( b2a + 2 * c) ;
-  13. 15. print ( “value=”, bba ) ;
-  14. 16.
-  15. 17. end
+   1. program f2024;
+   2. var
+   3. a , b2a , c, bba : integer ;
+   4. begin
+   5. a = 3 ;
+   6. b2a = 14 ;
+   7. c = 5 ;
+   8. print ( c );
+   9. bba = a1 * ( b2a + 2 * c) ;
+  10. print ( “value=”, bba ) ;
+  11. end
